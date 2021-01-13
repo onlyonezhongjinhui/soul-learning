@@ -14,7 +14,7 @@ soul:
 
 soul-spring-boot-starter-client-springmvc启动的时候注册SpringMvcClientBeanPostProcessor后置处理器
 
-```
+```java
 @Configuration
 public class SoulSpringMvcClientConfiguration {
   
@@ -46,7 +46,7 @@ public class SoulSpringMvcClientConfiguration {
 
 SpringMvcClientBeanPostProcessor后置处理器进行Bean扫描并提交注册任务到线程池
 
-```
+```java
 public class SpringMvcClientBeanPostProcessor implements BeanPostProcessor {
 
     private final ThreadPoolExecutor executorService;
@@ -119,7 +119,7 @@ public class SpringMvcClientBeanPostProcessor implements BeanPostProcessor {
 
 最终委托给了RegisterUtils工具类通过OkHttpTools发送http请求注册到了soul-admin
 
-```
+```java
 public final class RegisterUtils {
 
     private RegisterUtils() {
