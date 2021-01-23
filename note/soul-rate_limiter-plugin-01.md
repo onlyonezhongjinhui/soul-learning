@@ -32,6 +32,7 @@
         </dependency>
 ```
 
+* 启动redis并配置到RateLimiter插件中
 * admin中开启RateLimiter插件
 
 ![微信截图20210123225355.png](assets/20210123225914-6aq1hcp-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210123225355.png)
@@ -44,7 +45,7 @@
 
 ![微信截图20210123225640.png](assets/20210123230000-t65v5sm-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210123225640.png)
 
-用jmeter压测一番，看看配置是否好用
+* 用jmeter压测一番，看看配置是否好用
 
 ![微信截图20210123230854.png](assets/20210123230924-4raiu8r-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210123230854.png)
 
