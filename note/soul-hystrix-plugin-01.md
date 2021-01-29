@@ -63,3 +63,40 @@ soul hystrix插件是网关用来对流量进行熔断的核心实现，使用�
 ![soa4isolation640.png](assets/20210129222225-9vtj0c7-soa-4-isolation-640.png)
 
 当使用Hystrix封装每个基础依赖项时，每个依赖项都是相互隔离的，受到延迟时发生饱和的资源的限制，并包含回退逻辑，该逻辑决定了在依赖项中发生任何类型的故障时做出什么响应。
+
+## soul 中如何使用Hystrix插件
+
+* 网关中引入依赖
+
+```xml
+ <dependency>
+      <groupId>org.dromara</groupId>
+      <artifactId>soul-spring-boot-starter-plugin-hystrix</artifactId>
+       <version>${last.version}</version>
+  </dependency>
+```
+
+* 开启插件，配置选择器、规则
+
+![image.png](assets/20210129231901-dcf7ysi-image.png)
+
+* 模拟一个超时请求
+
+```java
+    @GetMapping("/findByUserId")
+    public UserDTO findByUserId(@RequestParam("userId") final String userId) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(userId);
+        userDTO.setUserName("hello world");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return userDTO;
+    }
+```
+
+* 请求接口获得响应，发现已经执行了降级处理
+
+![image.png](assets/20210129232041-oyhupoy-image.png)
