@@ -282,3 +282,22 @@ public class HystrixPlugin extends AbstractSoulPlugin {
 ```
 
 doExcuete中根据配置创建一个基于线程隔离还是信号量隔离的Command，执行command的fetchObservable()方法。这样就把Hystrix使用起来了。
+
+## 问题
+
+```java
+default Mono<Void> doFallback(ServerWebExchange exchange, Throwable exception) {
+        if (Objects.isNull(getCallBackUri())) {
+            Object error;
+            error = generateError(exchange, exception);
+            return WebFluxResultUtils.result(exchange, error);
+        }
+        DispatcherHandler dispatcherHandler =
+            SpringBeanUtils.getInstance().getBean(DispatcherHandler.class);
+        ServerHttpRequest request = exchange.getRequest().mutate().uri(getCallBackUri()).build();
+        ServerWebExchange mutated = exchange.mutate().request(request).build();
+        return dispatcherHandler.handle(mutated);
+    }
+```
+
+doFallback是否应该包装在Command中执行，防止降级服务也跨了引起问题。
